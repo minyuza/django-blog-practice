@@ -1,2 +1,2 @@
-# django_blog_practice
+# django-blog-practice
 A repository for practicing making django blog.
