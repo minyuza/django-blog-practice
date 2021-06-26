@@ -13,5 +13,8 @@
       {{blog.pub_date}}
     </div>
     <p>{{blog.body}}</p>
+    <a href="{% url 'update' blog.id %}">수정하기</a>
+    <a href="{% url 'delete' blog.id %}">삭제하기</a>
+    <a href="{% url 'home' %}">HOME</a>
   </body>
 </html>

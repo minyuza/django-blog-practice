@@ -8,6 +8,7 @@
   </head>
   <body>
     <h1>BLOG</h1>
+    <h4><a href="{% url 'new' %}">Write</a></h4>
     {% for blog in blogs %}
     <h3>{{blog.title}}</h3>
     <p>{{blog.writer}}</p>
