@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BLOG</title>
-  </head>
-  <body>
-    <h1>UPDATE POST</h1>
-    <form action="{% url 'update' blog.id %}" method="post">
-      {%csrf_token%}
-      <p>제목: <input type="text" name="title" value="{{blog.title}}" /></p>
-      <p>작성자: <input type="text" name="writer" value="{{blog.writer}}" /></p>
-      본문: <textarea name="body" cols="30" rows="20">{{blog.body}}</textarea>
-      <button type="submit">작성</button>
-    </form>
-  </body>
-</html>
+{% extends 'base.html' %} {% block content %}
+
+<h1>UPDATE POST</h1>
+<form action="{% url 'update' blog.id %}" method="post">
+  {%csrf_token%}
+  <p>제목: <input type="text" name="title" value="{{blog.title}}" /></p>
+  <p>작성자: <input type="text" name="writer" value="{{blog.writer}}" /></p>
+  본문: <textarea name="body" cols="30" rows="20">{{blog.body}}</textarea>
+  <button type="submit">작성</button>
+</form>
+{% endblock %}

@@ -22,6 +22,11 @@ def create(request):
     new_blog = Blog()
     new_blog.title = request.POST['title']
     new_blog.writer = request.POST['writer']
+    # 이미지 파일 업로드 안할 시 조건문을 통해 예외처리 해줘야 함
+    if request.FILES.get('image') is not None:
+        new_blog.image = request.FILES.get('image')
+    else:
+        pass
     new_blog.body = request.POST['body']
     new_blog.pub_date = timezone.now()
     new_blog.save()
