@@ -1,6 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 <h1>WRITE NEW POST</h1>
-<form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+<form
+  action="{% url 'blog:create' %}"
+  method="post"
+  enctype="multipart/form-data"
+>
   {%csrf_token%}
   <p>제목: <input type="text" name="title" /></p>
   <p>작성자: <input type="text" name="writer" /></p>

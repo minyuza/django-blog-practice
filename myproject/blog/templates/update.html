@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
 <h1>UPDATE POST</h1>
-<form action="{% url 'update' blog.id %}" method="post">
+<form action="{% url 'blog:update' blog.id %}" method="post">
   {%csrf_token%}
   <p>제목: <input type="text" name="title" value="{{blog.title}}" /></p>
   <p>작성자: <input type="text" name="writer" value="{{blog.writer}}" /></p>

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from .forms import BlogForm
 from .models import Blog
 # Create your views here.
 
@@ -30,7 +31,7 @@ def create(request):
     new_blog.body = request.POST['body']
     new_blog.pub_date = timezone.now()
     new_blog.save()
-    return redirect('detail', new_blog.id)
+    return redirect('blog:detail', new_blog.id)
 
 
 def update(request, id):
@@ -48,3 +49,20 @@ def delete(request, id):
     blog = Blog.objects.get(id=id)
     blog.delete()
     return redirect("home")
+
+
+def new_with_django_form(request):
+    form = BlogForm()
+    return render(request, 'new_with_django_form.html', {'form': form})
+
+
+def create_with_django_form(request):
+    form = BlogForm(request.POST, request.FILES)
+    if form.is_valid():
+        new_blog = form.save(commit=False)
+        new_blog.pub_date = timezone.now()
+        if request.user.is_authenticated:
+            new_blog.user = request.user
+        new_blog.save()
+        return redirect('blog:detail', new_blog.id)
+    return redirect('home')
