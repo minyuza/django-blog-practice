@@ -1,15 +1,53 @@
 {% extends 'base.html' %} {% block content %}
+<br />
 
-<h1>{{blog.title}}</h1>
-<div>
-  {{blog.user.username}}<br />
-  {{blog.pub_date}}
-</div>
+<h1><strong>{{blog.title}}</strong></h1>
+<br />
+<p>
+  글쓴이: {{blog.writer}}<br />
+  작성일: {{blog.pub_date}}
+</p>
 {% if blog.image %}
 <p><img src="{{blog.image.url}}" alt="" /></p>
 {% endif %}
-<p>{{blog.body}}</p>
-<a href="{% url 'blog:update' blog.id %}">수정하기</a>
-<a href="{% url 'blog:delete' blog.id %}">삭제하기</a>
-<a href="{% url 'home' %}">HOME</a>
+<br />
+<h5>{{blog.body}}</h5>
+<br />
+<a href="{% url 'blog:update' blog.id %}"
+  ><button type="button" class="btn btn-warning">수정하기</button></a
+>
+<a href="{% url 'blog:delete' blog.id %}"
+  ><button type="button" class="btn btn-danger">삭제하기</button></a
+>
+<a href="{% url 'home' %}"
+  ><button type="button" class="btn btn-info">HOME</button></a
+>
+<br />
+<br />
+
+<hr />
+<br />
+
+<h5><strong>-Comments-</strong></h5>
+{% for comment in blog.comments.all %}
+<div class="comment">
+  <strong>{{ comment.writer }}</strong>
+  <p>{{ comment.comment|linebreaks }}</p>
+</div>
+{% empty %}
+<p>No comments</p>
+{% endfor %}
+<form
+  action="{% url 'blog:create_comment' blog.id %}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  {%csrf_token%}
+  <p>작성자: <input type="text" name="writer" /></p>
+  댓글: <textarea name="comment" cols="80" rows="10"></textarea>
+  <button type="submit">작성</button>
+</form>
+<br />
+<br />
+
 {% endblock %}

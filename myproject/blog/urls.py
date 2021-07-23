@@ -14,4 +14,6 @@ urlpatterns = [
          name="new_with_django_form"),
     path('create_with_django_form/', create_with_django_form,
          name="create_with_django_form"),
+    path('create_comment/<int:id>', create_comment, name="create_comment"),
+
 ]

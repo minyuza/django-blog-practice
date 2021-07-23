@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .forms import BlogForm
-from .models import Blog
+from .models import Blog, Comment
 # Create your views here.
 
 
@@ -66,3 +66,15 @@ def create_with_django_form(request):
         new_blog.save()
         return redirect('blog:detail', new_blog.id)
     return redirect('home')
+
+
+def create_comment(request, id):
+    blog = Blog.objects.get(id=id)
+    if request.method == "POST":
+        new_comment = Comment()
+        new_comment.writer = request.POST['writer']
+        new_comment.comment = request.POST['comment']
+        new_comment.post = blog
+        new_comment.save()
+        return redirect('blog:detail', blog.id)
+    return render(request, 'detail.html', {"blog": blog})

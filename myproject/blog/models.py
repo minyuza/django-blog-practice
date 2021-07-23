@@ -17,3 +17,17 @@ class Blog(models.Model):
 
     def summary(self):
         return self.body[:10]
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Blog, related_name='comments', on_delete=models.CASCADE)
+    writer = models.CharField(max_length=20)
+    comment = models.TextField()
+    # 들어갈 내용들 : 댓글 작성자, 댓글 내용, 댓글 작성 시간
+
+    def approve(self):
+        self.save()
+
+    def __str__(self):
+        return self.comment
